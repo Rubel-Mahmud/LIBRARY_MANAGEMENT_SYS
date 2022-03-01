@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import BookIssue
 
-# Register your models here.
+class BookIssueAdmin(admin.ModelAdmin):
+    list_display = ('issueId', 'title', 'student', 'is_closed')
+
+admin.site.register(BookIssue, BookIssueAdmin)

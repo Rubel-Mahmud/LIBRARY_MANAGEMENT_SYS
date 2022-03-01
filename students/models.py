@@ -29,7 +29,7 @@ class Student(models.Model):
         ('other', 'Other'),
     )
 
-    stdId = models.CharField(max_length=50, null=True, blank=True)
+    stdId = models.CharField(max_length=50, null=True, blank=True, editable=False)
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=50)
     mobile = models.CharField(max_length=50)

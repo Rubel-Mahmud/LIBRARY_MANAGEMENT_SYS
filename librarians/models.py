@@ -11,4 +11,4 @@ class Librarian(models.Model):
         verbose_name_plural = 'librarians'
 
     def __str__(self):
-        return f'{self.libId} - {self.name}'
+        return self.name
