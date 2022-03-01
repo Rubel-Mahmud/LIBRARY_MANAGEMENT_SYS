@@ -1,0 +1,24 @@
+
+# Python
+*.pyc
+*~
+__pycache__
+
+# Env
+.env
+myvenv/
+venv/
+/venv_django_4.00
+
+
+# Database
+db.sqlite3
+
+# Static folder at project root
+#/static/
+
+# media folder at project root
+/media
+
+
+/test
