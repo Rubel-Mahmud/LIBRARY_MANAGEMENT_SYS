@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-6 student">
+            <h6>Issued To :</h6>
+            <h2>Name : {{ issue.student.name }}</h2>
+            <p>Email : {{ issue.student.email }}</p>
+            <p>Contact : {{ issue.student.mobile }}</p>
+            <p>Session : {{ issue.student.session }}</p>
+            <p>Department : {{ issue.student.department }}</p>
+            <p>Semister : {{ issue.student.semister }}</p>
+            <p>Gender : {{ issue.student.gender }}</p>
+        </div>
+        <div class="col-md-6 librarian">
+            <h6>Issued By :</h6>
+            <h4>{{ issue.librarian.name }}</h4>
+            <p>{{ issue.librarian.email }}</p>
+            <p>{{ issue.librarian.mobile }}</p>
+        </div>
+    </div>
+<hr>
+
+<br>
+<hr>
+
+<form method="POST">
+    {% csrf_token %}
+    <select name="book">
+        <option value="select" selected>Select</option>
+    {% for book in books %}
+        <option value="{{ book.pk }}">{{ book.name }} ({{ book.amount }})</option>
+<!--      <input type="checkbox" id="vehicle1" name="{{ book.pk }}" value="Bike">-->
+<!--      <label for="vehicle1"> {{ book.name }}</label><br>-->
+    {% endfor %}
+    </select>
+    <input type="submit" class="btn btn-primary" value="Add">
+</form>
+</div>
+{% endblock content %}
