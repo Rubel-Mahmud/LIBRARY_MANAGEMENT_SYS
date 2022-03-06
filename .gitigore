@@ -9,6 +9,8 @@ __pycache__
 myvenv/
 venv/
 /venv_django_4.00
+# to list a folter like venv just place the folder name
+venv_django_4.00
 
 
 # Database

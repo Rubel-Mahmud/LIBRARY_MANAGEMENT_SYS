@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Issue</title>
+</head>
+<body>
+<h2>Book Issue</h2>
+<h4>Student Info</h4>
+<ul>
+    <li>{{ issue.student.name }}</li>
+    <li>{{ issue.student.email }}</li>
+    <li>{{ issue.student.mobile }}</li>
+    <li>{{ issue.student.session }}</li>
+    <li>{{ issue.student.department }}</li>
+    <li>{{ issue.student.semister }}</li>
+    <li>{{ issue.student.religion }}</li>
+    <li>{{ issue.student.dob }}</li>
+    <li>{{ issue.student.gender }}</li>
+</ul>
+<hr>
+<h4>Librarian Info</h4>
+<ul>
+    <li>{{ issue.librarian.name }}</li>
+    <li>{{ issue.librarian.email }}</li>
+    <li>{{ issue.librarian.mobile }}</li>
+</ul>
+<br>
+<hr>
+<ul>
+    {% for book in books %}
+    <li>{{ book.name }}</li>
+    {% endfor %}
+</ul>
+<form method="POST">
+    {% csrf_token %}
+    {% for book in books %}
+      <input type="checkbox" id="vehicle1" name="{{ book.pk }}" value="Bike">
+      <label for="vehicle1"> {{ book.name }}</label><br>
+<!--      <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">-->
+<!--      <label for="vehicle2"> I have a car</label><br>-->
+<!--      <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">-->
+<!--      <label for="vehicle3"> I have a boat</label><br><br>-->
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

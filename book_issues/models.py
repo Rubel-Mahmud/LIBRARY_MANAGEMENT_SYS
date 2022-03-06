@@ -14,12 +14,13 @@ class BookIssue(models.Model):
     # Related Fields
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     librarian = models.ForeignKey(Librarian, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    # book = models.ForeignKey(Book, null=True, blank=True, on_delete=models.CASCADE)
+    books = models.ManyToManyField(Book, null=True, blank=True)
 
     # Utility Fields
     issue_date = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
-    return_date = models.DateField()
+    return_date = models.DateField(null=True, blank=True)
 
     is_closed = models.BooleanField(default=False)
 

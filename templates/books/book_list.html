@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+    {% for book in books %}
+    <li>{{ book.name }} - {{ book.amount }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}
