@@ -4,14 +4,14 @@ from students.models import Student
 from .models import BookIssue
 from books.models import Book
 
-def book_issue(request, student_id):
+def create_issue(request, student_id):
     librarian = Librarian.objects.get(pk=1)
     student = Student.objects.get(pk=student_id)
     issue = BookIssue.objects.create(student=student, librarian=librarian)
     return redirect('book_issue_complete', issue.pk)
 
 
-def book_issue_complete(request, book_issue_id):
+def complete_issue(request, book_issue_id):
     queryset = {}
     issue = BookIssue.objects.get(pk=book_issue_id)
     books = Book.objects.filter(department=issue.student.department).filter(semister=issue.student.semister)
@@ -32,7 +32,7 @@ def book_issue_complete(request, book_issue_id):
     return render(request, 'book_issues/book_issue.html', queryset)
 
 
-def book_issue_document(request, book_issue_id):
+def document_issue(request, book_issue_id):
     issue = BookIssue.objects.get(pk=book_issue_id)
     context = {}
     context['issue'] = issue
