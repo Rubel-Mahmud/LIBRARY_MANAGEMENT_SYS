@@ -65,3 +65,8 @@ def remove_issued_book(request, issue_id, book_id):
     book.save()
     return redirect('complete_issue', issue_id)
 
+def book_issues(request):
+    context = {}
+    issues = BookIssue.objects.all().order_by('-issue_date')
+    context['issues'] = issues
+    return render(request, 'book_issues/issues.html', context)

@@ -1,0 +1,1 @@
+# Restrict the user from adding book to the issue if stock is empty

@@ -15,7 +15,7 @@ class BookIssue(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     librarian = models.ForeignKey(Librarian, on_delete=models.CASCADE)
     # book = models.ForeignKey(Book, null=True, blank=True, on_delete=models.CASCADE)
-    books = models.ManyToManyField(Book, null=True, blank=True)
+    books = models.ManyToManyField(Book)
 
     # Utility Fields
     issue_date = models.DateTimeField(auto_now_add=True)

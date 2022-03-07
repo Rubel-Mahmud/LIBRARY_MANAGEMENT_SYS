@@ -1,31 +1,94 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+
+#pageBox {
+<!--  margin:40px;-->
+  padding: 0px;
+  box-shadow:
+       inset 0 -3em 3em rgba(0,0,0,0.1),
+             0 0  0 2px rgb(255,255,255),
+             0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+
+{% endblock stylesheet %}
+
 {% block content %}
-<h2>Book Issue</h2>
-<h4>Student Info</h4>
-<ul>
-    <li>{{ issue.student.name }}</li>
-    <li>{{ issue.student.email }}</li>
-    <li>{{ issue.student.mobile }}</li>
-    <li>{{ issue.student.session }}</li>
-    <li>{{ issue.student.department }}</li>
-    <li>{{ issue.student.semister }}</li>
-    <li>{{ issue.student.religion }}</li>
-    <li>{{ issue.student.dob }}</li>
-    <li>{{ issue.student.gender }}</li>
-</ul>
-<hr>
-<h4>Librarian Info</h4>
-<ul>
-    <li>{{ issue.librarian.name }}</li>
-    <li>{{ issue.librarian.email }}</li>
-    <li>{{ issue.librarian.mobile }}</li>
-</ul>
-<br>
-<hr>
-<ul>
-    {% for book in issue.books.all %}
-    <li>{{ book.name }}</li>
-    {% endfor %}
-</ul>
+<div style="padding:30px;">
+    <div class="container" id="pageBox">
+        <div style="padding:5px 35px 35px 35px;">
+        <br>
+        <div class="row">
+    <!--        <div class="col-md-1"></div>-->
+            <div class="col-md-6 student">
+                <h6>Issued To -</h6>
+                <h4>{{ issue.student.name }}</h4>
+                <p>{{ issue.student.email }}</p>
+                <p>Department : {{ issue.student.department }}</p>
+                <p>Semister : {{ issue.student.semister }}th</p>
+            </div>
+            <div style="text-align:right;" class="col-md-6 librarian">
+                <h6>- Issued By</h6>
+                <h4>{{ issue.librarian.name }}</h4>
+                <p style="margin-bottom:5px;">{{ issue.librarian.email }}</p>
+                <p style="margin-bottom:5px;">{{ issue.librarian.mobile }}</p>
+                <p style="margin-bottom:5px;">Desk : DPI-200</p>
+            </div>
+    <!--        <div class="col-md-1"></div>-->
+        </div>
+    <br>
+<!--        <div class="row">-->
+<!--    &lt;!&ndash;        <div class="col-md-1"></div>&ndash;&gt;-->
+<!--            <div class="col-md-12">-->
+<!--                <hr width="100%">-->
+<!--            </div>-->
+<!--    &lt;!&ndash;        <div class="col-md-1"></div>&ndash;&gt;-->
+<!--        </div>-->
+
+        <br>
+        <small>Books :</small>
+        <div class="row">
+    <!--        <div class="col-md-1"></div>-->
+            <div class="col-md-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col" style="padding-left:100px;"></th>
+                      <th scope="col" class="text-center">Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for book in issue.books.all %}
+                    <tr>
+                      <th scope="row">{{ book.id }}</th>
+                      <td>{{ book.name }}</td>
+                      <td></td>
+                      <td class="text-center">1</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+    <!--        <div class="col-md-1"></div>-->
+        </div>
+        <br>
+        <br>
+        <div class="row">
+<!--            <div class="col-md-1"></div>-->
+            <div class="col-md-4">
+                <small ><b>Issue ID : {{ issue.issueId }}</b></small><br>
+                <small>Issued : {{ issue.issue_date }}</small>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-3">
+                <h6 style="margin:0px;">&nbsp;</h6>
+                <small style="text-align:right;padding-left:60px;">Return : {{ issue.issue_date.date }}</small>
+            </div>
+<!--            <div class="col-md-1"></div>-->
+        </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

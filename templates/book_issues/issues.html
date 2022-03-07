@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="row" style="padding:0px 30px;">
+        <div class="col-md-4 ">
+            <h4>All Book Issues</h4>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h4 style="text-align:right;">Year : 2022</h4>
+        </div>
+    </div>
+    <br>
+    <div class="row" style="margin-right:50px;">
+<!--        <div class="col-md-1"></div>-->
+        <div class="" style=" border:1px solid #ddd; margin-left:30px; padding-top:15px;padding-bottom:10px;padding-left:10px;">
+            <form class="form-inline" method="post">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="sr-only" for="inlineFormInputName2">Name</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Issue Id">
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control custom-select " id="inlineFormCustomSelectPref">
+                            <option selected>Department...</option>
+                            <option value="1">One</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control custom-select " id="inlineFormCustomSelectPref">
+                            <option selected>Semister...</option>
+                            <option value="1">One</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3" style="width:20%;">
+                        <div class="form-group">
+                            <input class="form-control" type="date" id="example" name="birthday">
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="width:20%;">
+                        <div class="form-group">
+                            <input class="form-control" type="date" id="example" name="birthday">
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-secondary mb-2">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+<!--        <div class="col-md-1"></div>-->
+    </div>
+    <br>
+    <div class="row">
+<!--        <div class="col-md-1"></div>-->
+        <div class="col-md-12" style="padding:0px 30px;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Issued To</th>
+                  <th scope="col">Issued By</th>
+                  <th scope="col" class="text-center">Status</th>
+                  <th scope="col" class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for issue in issues %}
+                <tr>
+                  <th scope="row">{{ issue.issueId }}</th>
+                  <td>{{ issue.student.name }}</td>
+                  <td>{{ issue.librarian.name }}</td>
+                  <td class="text-center">
+                      <button type="button" class="btn btn-danger btn-sm" style="cursor:auto;">Warning</button>
+                  </td>
+                  <td class="text-center">
+                      <a href="{% url 'document_issue' issue.pk %}" class="btn btn-primary btn-sm">&nbsp;View&nbsp;</a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+<!--        <div class="col-md-1"></div>-->
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+
+// Data Picker Initialization
+$('.datepicker').datepicker({
+  inline: true
+});
+
+{% endblock script %}
