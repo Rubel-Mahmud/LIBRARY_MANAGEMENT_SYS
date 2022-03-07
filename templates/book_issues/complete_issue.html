@@ -4,39 +4,111 @@
 <div class="container">
     <br>
     <div class="row">
-        <div class="col-md-6 student">
-            <h6>Issued To :</h6>
-            <h2>Name : {{ issue.student.name }}</h2>
-            <p>Email : {{ issue.student.email }}</p>
-            <p>Contact : {{ issue.student.mobile }}</p>
-            <p>Session : {{ issue.student.session }}</p>
+        <div class="col-md-1"></div>
+        <div class="col-md-5 student">
+            <h6>Issued To -</h6>
+            <h4>{{ issue.student.name }}</h4>
+            <p>{{ issue.student.email }}</p>
             <p>Department : {{ issue.student.department }}</p>
-            <p>Semister : {{ issue.student.semister }}</p>
-            <p>Gender : {{ issue.student.gender }}</p>
+            <p>Semister : {{ issue.student.semister }}th</p>
         </div>
-        <div class="col-md-6 librarian">
-            <h6>Issued By :</h6>
+        <div style="text-align:right;" class="col-md-5 librarian">
+            <h6>- Issued By</h6>
             <h4>{{ issue.librarian.name }}</h4>
-            <p>{{ issue.librarian.email }}</p>
-            <p>{{ issue.librarian.mobile }}</p>
+            <p style="margin-bottom:5px;">{{ issue.librarian.email }}</p>
+            <p style="margin-bottom:5px;">{{ issue.librarian.mobile }}</p>
+            <p style="margin-bottom:5px;">Desk : DPI-200</p>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+<br>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <hr width="100%">
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+<!--<form method="POST">-->
+<!--    {% csrf_token %}-->
+<!--    <select name="book" class=" form-control">-->
+<!--        <option value="select" selected>Select</option>-->
+<!--    {% for book in books %}-->
+<!--        <option value="{{ book.pk }}">{{ book.name }} ({{ book.amount }})</option>-->
+<!--    {% endfor %}-->
+<!--    </select>-->
+<!--    <input type="submit" class="btn btn-primary" value="Add">-->
+<!--</form>-->
+<!--    <br>-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+
+                <form class="form-inline" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-10">
+                            <select name="book" class=" form-control">
+                                <option value="select" selected>Select ...</option>
+                            {% for book in books %}
+                                <option value="{{ book.pk }}">{{ book.name }} ({{ book.amount }})</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mb-2">Entry</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
-<hr>
-
-<br>
-<hr>
-
-<form method="POST">
-    {% csrf_token %}
-    <select name="book">
-        <option value="select" selected>Select</option>
-    {% for book in books %}
-        <option value="{{ book.pk }}">{{ book.name }} ({{ book.amount }})</option>
-<!--      <input type="checkbox" id="vehicle1" name="{{ book.pk }}" value="Bike">-->
-<!--      <label for="vehicle1"> {{ book.name }}</label><br>-->
-    {% endfor %}
-    </select>
-    <input type="submit" class="btn btn-primary" value="Add">
-</form>
+    <br>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col" style="padding-left:100px;"></th>
+                  <th scope="col">Count</th>
+                  <th scope="col" style="text-align:right;padding-right:42px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for book in issued_books %}
+                <tr>
+                  <th scope="row">{{ book.id }}</th>
+                  <td>{{ book.name }}</td>
+                  <td></td>
+                  <td>1</td>
+                  <td style="text-align:right;padding-right:30px;">
+                      <a href="{% url 'remove_issued_book' issue.pk book.pk %}" class="btn btn-sm btn-danger">Remove</a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <small>Issued : {{ issue.issue_date }}</small>
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <small style="text-align:right;">Return : {{ issue.issue_date.date }}</small>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
 </div>
 {% endblock content %}

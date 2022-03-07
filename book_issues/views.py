@@ -38,6 +38,7 @@ def complete_issue(request, issue_id):
     books = Book.objects.filter(department=issue.student.department).filter(semister=issue.student.semister)
     queryset['books'] = books
     queryset['issue'] = issue
+    queryset['issued_books'] = issue.books.all()
     if request.method == "POST":
         book_id = request.POST.get('book')
         print('Book id : ', book_id)
@@ -46,8 +47,7 @@ def complete_issue(request, issue_id):
         issue.books.add(book)
         book.amount -= 1
         book.save()
-        print('issue books : ', issue.books.all())
-        return redirect('document_issue', issue_id)
+        # return redirect('document_issue', issue_id)
     return render(request, 'book_issues/complete_issue.html', queryset)
 
 
@@ -56,3 +56,12 @@ def document_issue(request, issue_id):
     context = {}
     context['issue'] = issue
     return render(request, 'book_issues/document_issue.html', context)
+
+def remove_issued_book(request, issue_id, book_id):
+    issue = BookIssue.objects.get(pk=issue_id)
+    book = Book.objects.get(pk=book_id)
+    issue.books.remove(book)
+    book.amount += 1
+    book.save()
+    return redirect('complete_issue', issue_id)
+
