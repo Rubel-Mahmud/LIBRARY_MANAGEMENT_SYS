@@ -41,5 +41,5 @@ class BookIssue(models.Model):
             self.slug = slugify(self.title)
         if self.issueId == None:
             unique_data = str(uuid4()).split('-')[4][:5]
-            self.issueId = slugify('BI-{}-{}.{}'.format(unique_data, self.student.department.name, self.student.semister))
+            self.issueId = slugify('BI-{}-{}.{}'.format(unique_data, self.student.department.name, self.student.semister[0]))
         super(BookIssue, self).save(*args, **kwargs)

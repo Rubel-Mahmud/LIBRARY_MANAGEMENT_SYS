@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from librarians.models import Librarian
 from students.models import Student, Department
@@ -88,8 +89,8 @@ def book_issues(request):
         issues = BookIssue.objects.filter(student__department_id=issueDepartment)
 
     if issueSemister and issueSemister != 'Semister...':
-        semister = str(issueSemister)[0]
-        issues = BookIssue.objects.filter(student__semister=semister)
+        # semister = str(issueSemister)[0]
+        issues = BookIssue.objects.filter(student__semister=issueSemister)
 
     if issueDate:
         issues = BookIssue.objects.filter(issue_date=issueDate)
@@ -97,5 +98,9 @@ def book_issues(request):
     if returnDate:
         issues = BookIssue.objects.filter(return_date=returnDate)
 
-    context['issues'] = issues
+    paginator = Paginator(issues, 5) # Show 10 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context['page_obj'] = page_obj
     return render(request, 'book_issues/issues.html', context)

@@ -3,9 +3,10 @@
 {% block content %}
 <div class="container-fluid px-4">
 <!--    <h1 class="mt-4">Dashboard</h1>-->
-    <ol class="breadcrumb mb-4">
-<!--        <li class="breadcrumb-item active">Dashboard</li>-->
-    </ol>
+<!--    <ol class="breadcrumb mb-4">-->
+<!--&lt;!&ndash;   ]      <li class="breadcrumb-item active">Dashboard</li>&ndash;&gt;-->
+<!--    </ol>-->
+    <br>
     <div class="row">
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
@@ -73,19 +74,19 @@
                     </tr>
                 </tfoot>
                 <tbody>
+                {% for student in students %}
                     <tr>
-                        {% for student in students %}
-                            <td>{{ student.stdId }}</td>
-                            <td>{{ student.name }}</td>
-                            <td>{{ student.department.name }}</td>
-                            <td>{{ student.semister }}</td>
-                            <td>{{ student.mobile }}</td>
-                            <td class="text-center">
-                                <a href="{% url 'create_issue' student.pk %}"><button class="btn btn-sm btn-primary">Create Issue</button></a>
-                                <a href="#"><button class="btn btn-sm btn-primary">View Profile</button></a>
-                            </td>
-                        {% endfor %}
+                        <td>{{ student.stdId }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.department.name }}</td>
+                        <td>{{ student.semister }}</td>
+                        <td>{{ student.mobile }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'create_issue' student.pk %}"><button class="btn btn-sm btn-primary">Create Issue</button></a>
+                            <a href="#"><button class="btn btn-sm btn-primary">View Profile</button></a>
+                        </td>
                     </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
