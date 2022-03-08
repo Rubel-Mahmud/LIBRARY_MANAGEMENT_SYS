@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from librarians.models import Librarian
-from students.models import Student
+from students.models import Student, Department
 from .models import BookIssue
 from books.models import Book
 
@@ -69,6 +69,33 @@ def remove_issued_book(request, issue_id, book_id):
 
 def book_issues(request):
     context = {}
+
+    issueId = request.GET.get('issueId')
+    issueDepartment = request.GET.get('issueDepartment')
+    issueSemister = request.GET.get('issueSemister')
+    issueDate = request.GET.get('issueDate')
+    returnDate = request.GET.get('returnDate')
+
     issues = BookIssue.objects.all().order_by('-issue_date')
+    context['departments'] =Department.objects.all()
+    context['semisters'] = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th']
+
+    if issueId:
+        issues = BookIssue.objects.filter(issueId=issueId)
+
+    if issueDepartment and issueDepartment != 'Department...':
+        print('Department : ', Department.objects.filter(pk=issueDepartment))
+        issues = BookIssue.objects.filter(student__department_id=issueDepartment)
+
+    if issueSemister and issueSemister != 'Semister...':
+        semister = str(issueSemister)[0]
+        issues = BookIssue.objects.filter(student__semister=semister)
+
+    if issueDate:
+        issues = BookIssue.objects.filter(issue_date=issueDate)
+
+    if returnDate:
+        issues = BookIssue.objects.filter(return_date=returnDate)
+
     context['issues'] = issues
     return render(request, 'book_issues/issues.html', context)

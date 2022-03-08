@@ -15,37 +15,46 @@
     <br>
     <div class="row" style="margin-right:50px;">
 <!--        <div class="col-md-1"></div>-->
-        <div class="" style=" border:1px solid #ddd; margin-left:30px; padding-top:15px;padding-bottom:10px;padding-left:10px;">
+        <div class="" style=" border:1px solid #ddd; margin-left:30px; padding-top:8px;padding-bottom:5px;padding-left:10px;">
             <form class="form-inline" method="GET">
                 <div class="row">
                     <div class="col-md-2">
-                        <label class="sr-only" for="inlineFormInputName2">Name</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Issue Id">
+                        <small><label class="sr-only" for="inlineFormInputName2">Issue id</label></small>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="type issues id" name="issueId">
                     </div>
                     <div class="col-md-2">
-                        <select class="form-control custom-select " id="inlineFormCustomSelectPref">
+                        <small><label class="sr-only" for="inlineFormCustomSelectPref">Department</label></small>
+                        <select class="form-control " id="inlineFormCustomSelectPref" name="issueDepartment">
                             <option selected>Department...</option>
-                            <option value="1">One</option>
+                            {% for department in departments %}
+                            <option value="{{ department.pk }}">{{ department.name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <select class="form-control custom-select " id="inlineFormCustomSelectPref">
+                        <small><label class="sr-only" for="inlineFormCustomSelectPref">Semister</label></small>
+                        <select class="form-control custom-select " id="inlineFormCustomSelectPref" name="issueSemister">
                             <option selected>Semister...</option>
-                            <option value="1">One</option>
+                            {% for semister in semisters %}
+                            <option value="{{ semister }}">{{ semister }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="col-md-3" style="width:20%;">
                         <div class="form-group">
-                            <input class="form-control" type="date" id="example" name="birthday">
+                            <small><label class="sr-only" for="issueDate">Date issue</label></small>
+                            <input class="form-control" type="date" id="issueDate" name="issueDate">
                         </div>
                     </div>
                     <div class="col-md-3" style="width:20%;">
                         <div class="form-group">
-                            <input class="form-control" type="date" id="example" name="birthday" placeholder="Return Date">
+                            <small><label class="sr-only" for="returnDate">Date return</label></small>
+                            <input class="form-control" type="date" id="returnDate" name="returnDate" placeholder="Return Date">
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <button type="submit" class="btn btn-secondary mb-2">Search</button>
+                        <label></label>
+                        <button type="submit" class="btn btn-secondary mb-2" name="issueSearch">Search</button>
                     </div>
                 </div>
             </form>
