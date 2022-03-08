@@ -41,12 +41,14 @@ def complete_issue(request, issue_id):
     queryset['issued_books'] = issue.books.all()
     if request.method == "POST":
         book_id = request.POST.get('book')
-        print('Book id : ', book_id)
         book = Book.objects.get(pk=book_id)
-        print('Book : ', book.name)
-        issue.books.add(book)
-        book.amount -= 1
-        book.save()
+        print('issue.books before add book : ', issue.books.all())
+        if book.amount != 0:
+            if book not in issue.books.all():
+                issue.books.add(book)
+                book.amount -= 1
+                book.save()
+        print('issue.books after add book : ', issue.books.all())
         # return redirect('document_issue', issue_id)
     return render(request, 'book_issues/complete_issue.html', queryset)
 
