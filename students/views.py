@@ -1,5 +1,6 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
-from .models import Student
+from .models import Student, Department
 
 # def home2(request):
 #     queryset = {}
@@ -21,5 +22,35 @@ from .models import Student
 def students(request):
     context = {}
     students = Student.objects.all()
-    context['students'] = students
+    context['semisters'] = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th']
+    context['departments'] = Department.objects.all()
+
+    studentId = request.GET.get('studentId')
+    studentName = request.GET.get('studentName')
+    department = request.GET.get('department')
+    semister = request.GET.get('semister')
+    mobile = request.GET.get('mobile')
+
+    if studentId:
+        students = Student.objects.filter(stdId__contains=studentId)
+    if studentName:
+        students = Student.objects.filter(name__icontains=studentName)
+    if department and department != 'Dep':
+        students = Student.objects.filter(department=department)
+    if semister and semister != 'Sem':
+        students = Student.objects.filter(semister=semister)
+    if mobile:
+        students = Student.objects.filter(mobile__contains=mobile)
+
+    paginator = Paginator(students, 10) # Show 10 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context['page_obj'] = page_obj
     return render(request, 'students/students.html', context)
+
+def departments(request):
+    context = {}
+    departments = Department.objects.all()
+    context['departments'] = departments
+    return render(request, 'students/departments.html', context)

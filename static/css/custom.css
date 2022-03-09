@@ -15,3 +15,7 @@
              0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
 
+.card-footer{
+    padding:0;
+    max-height:60px;
+}

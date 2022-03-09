@@ -51,11 +51,7 @@ class Student(models.Model):
 
     def save(self, *args, **kwargs):
         if self.stdId == None:
-            if self.name[4] != ' ':
-                i = 4
-            else:
-                i = 5
-            self.stdId = self.name[i]+str(self.department.code)+self.department.name
+            self.stdId = self.name[0]+str(self.department.code)+self.department.name
             print('self.stdId : ', self.stdId)
         super(Student, self).save(*args, **kwargs)
 """
