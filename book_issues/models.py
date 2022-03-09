@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime, timedelta
 from uuid import uuid4
 from django.utils.text import slugify
 from students.models import Student
@@ -36,10 +37,28 @@ class BookIssue(models.Model):
     def __str__(self):
         return f'{self.title} - {self.issueId} - {self.student.name}'
 
+    @property
+    def zone(self):
+        today = datetime.today().date()
+        day_between = self.return_date - today
+        day = day_between.days
+        if day <= 2:
+            status = 'danger'
+        else:
+            status = 'warning'
+        return status
+
     def save(self, *args, **kwargs):
         if self.slug == None:
             self.slug = slugify(self.title)
         if self.issueId == None:
             unique_data = str(uuid4()).split('-')[4][:5]
             self.issueId = slugify('BI-{}-{}.{}'.format(unique_data, self.student.department.name, self.student.semister[0]))
+        if self.return_date == None:
+            dt = datetime.now()
+            td = timedelta(days=7)
+            # your calculated date
+            my_date = dt + td
+            self.return_date = my_date
+
         super(BookIssue, self).save(*args, **kwargs)

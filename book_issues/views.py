@@ -74,7 +74,7 @@ def book_issues(request):
     issueId = request.GET.get('issueId')
     issueDepartment = request.GET.get('issueDepartment')
     issueSemister = request.GET.get('issueSemister')
-    issueDate = request.GET.get('issueDate')
+    status = request.GET.get('status')
     returnDate = request.GET.get('returnDate')
 
     issues = BookIssue.objects.all().order_by('-issue_date')
@@ -92,8 +92,8 @@ def book_issues(request):
         # semister = str(issueSemister)[0]
         issues = BookIssue.objects.filter(student__semister=issueSemister)
 
-    if issueDate:
-        issues = BookIssue.objects.filter(issue_date=issueDate)
+    if status and status != 'Select...':
+        issues = BookIssue.objects.filter(is_closed=status)
 
     if returnDate:
         issues = BookIssue.objects.filter(return_date=returnDate)

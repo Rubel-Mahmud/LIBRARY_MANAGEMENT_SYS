@@ -42,8 +42,12 @@
                     </div>
                     <div class="col-md-3" style="width:20%;">
                         <div class="form-group">
-                            <small><label class="" for="issueDate">Date issue</label></small>
-                            <input class="form-control" type="date" id="issueDate" name="issueDate">
+                            <small><label class="" for="inlineFormCustomSelectPref">Status</label></small>
+                            <select class="form-control custom-select " id="inlineFormCustomSelectPref" name="status">
+                                <option selected>Select...</option>
+                                <option value="True">Running</option>
+                                <option value="False">Closed</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-3" style="width:20%;">
@@ -81,9 +85,21 @@
                   <th scope="row">{{ issue.issueId }}</th>
                   <td>{{ issue.student.name }}</td>
                   <td>{{ issue.librarian.name }}</td>
+                  {% if issue.is_closed == False %}
+                    {% if issue.zone == 'danger' %}
+                    <td class="text-center">
+                      <button type="button" class="btn btn-danger btn-sm" style="cursor:auto;">Running</button>
+                    </td>
+                    {% else %}
+                    <td class="text-center">
+                      <button type="button" class="btn btn-warning btn-sm" style="cursor:auto;">Running</button>
+                    </td>
+                    {% endif %}
+                  {% else %}
                   <td class="text-center">
-                      <button type="button" class="btn btn-danger btn-sm" style="cursor:auto;">Warning</button>
+                      <button type="button" class="btn btn-success btn-sm" style="cursor:auto;">&nbsp;Closed&nbsp;&nbsp;</button>
                   </td>
+                  {% endif %}
                   <td class="text-center">
                       <a href="{% url 'document_issue' issue.pk %}" class="btn btn-primary btn-sm">&nbsp;View&nbsp;</a>
                   </td>
