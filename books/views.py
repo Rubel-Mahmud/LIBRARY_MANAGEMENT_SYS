@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from books.models import Book
 
@@ -13,5 +14,8 @@ from books.models import Book
 def book_list(request):
     context = {}
     books = Book.objects.all()
-    context['books'] = books
+    paginator = Paginator(books, 5) # Show 10 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context['page_obj'] = page_obj
     return render(request, 'books/book_list.html', context)

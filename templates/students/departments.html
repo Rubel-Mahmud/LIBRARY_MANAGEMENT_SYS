@@ -1,17 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card text-center">
-  <div class="card-header">
-    Featured
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-  <div class="card-footer text-muted">
-    2 days ago
-  </div>
+<div class="container">
+<!--    <br>-->
+    <div class="col-md-4" style="text-align:left; padding-top:20px;padding-bottom:5px;">
+      <i class="fas fa-columns"></i>
+      Departments
+    </div>
+    <div class="card text-center">
+      <div class="card-header"  style="text-align:left;">
+          <small><b>All available departments in this institute</b></small>
+      </div>
+      <div class="card-body"  style="text-align:left;">
+
+          <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Sr No</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for department in departments %}
+                <tr>
+                  <th style="width:6%;" scope="row">{{ forloop.counter }}</th>
+                  <td>{{ department.name }}</td>
+                  <td>{{ department.code }}</td>
+                  <td>{{ department.description }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+
+      </div>
+    </div>
 </div>
 {% endblock content %}
