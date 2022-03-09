@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
+from django.http import Http404
 from librarians.models import Librarian
 from students.models import Student, Department
 from .models import BookIssue
@@ -104,3 +105,14 @@ def book_issues(request):
 
     context['page_obj'] = page_obj
     return render(request, 'book_issues/issues.html', context)
+
+
+def close_issue(request, issue_id):
+    try:
+        issue = BookIssue.objects.get(pk=issue_id)
+        issue.close_issue()
+        issue.save()
+        print('issue.is_closed : ', issue.is_closed)
+    except BookIssue.DoesNotExist:
+        raise Http404
+    return redirect('issue_list')

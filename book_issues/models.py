@@ -26,9 +26,7 @@ class BookIssue(models.Model):
     is_closed = models.BooleanField(default=False)
 
     def close_issue(self):
-        """
-        This method will close a opened book issue
-        """
+        """This method will close a opened book issue"""
         self.is_closed = True
 
     class Meta:
