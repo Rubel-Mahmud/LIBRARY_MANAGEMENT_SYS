@@ -39,7 +39,7 @@ class Student(models.Model):
     dob = models.DateField()
     fatherName = models.CharField(max_length=100)
     motherName = models.CharField(max_length=100)
-    address = models.TextField(max_length=500)
+    address = models.TextField(max_length=400)
     religion = models.CharField(max_length=100)
     gender = models.CharField(choices=gender, max_length=100)
 
